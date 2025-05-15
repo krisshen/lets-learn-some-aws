@@ -1,36 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Quiz Grid</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-white p-4 text-center">
+    <head>
+        <meta charset="UTF-8">
+        <title>Quiz Grid</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body
+        class="bg-gradient-to-b from-sky-50 to-white min-h-screen text-center p-6 font-sans">
 
-  <h1 class="text-xl font-semibold mb-4">
-    AIF-C01<br/>
-    <span id="answered-count">0</span>/<span id="total-count">0</span>
-  </h1>
+        <h1 class="text-2xl font-semibold mb-6 text-gray-800">
+            AIF-C01<br />
+            <span id="answered-count"
+                class="text-green-600 font-bold">0</span>/<span
+                id="total-count">0</span>
+        </h1>
 
-  <div id="grid" class="grid grid-cols-10 gap-2 justify-center"></div>
+        <div id="grid"
+            class="grid grid-cols-10 gap-3 justify-center text-sm"></div>
 
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="relative flex items-center justify-center w-full max-w-2xl mx-auto">
-      <button id="prev-btn" aria-label="Previous" class="absolute -left-8 top-1/2 -translate-y-1/2 text-4xl px-3 py-2 text-gray-500 hover:text-black bg-white rounded-full shadow-lg z-50">&#8592;</button>
-      <div class="bg-white p-6 rounded-xl w-full max-w-xl text-left flex items-start z-50">
-        <div class="flex-1 min-w-0">
-          <h2 class="text-lg font-bold mb-2" id="question-title">Question</h2>
-          <div id="question" class="mb-4"></div>
-          <div id="options" class="space-y-2"></div>
-          <button onclick="closeModal()" class="mt-4 bg-gray-200 px-4 py-2 rounded">Close</button>
+        <!-- Modal -->
+        <div id="modal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div
+                class="relative flex items-center justify-center w-full max-w-2xl mx-auto">
+                <!-- Left Arrow -->
+                <button id="prev-btn" aria-label="Previous"
+                    class="absolute -left-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-2 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-xl text-left flex items-start z-50 border border-gray-200">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-lg font-bold mb-2"
+                            id="question-title">Question</h2>
+                        <div id="question" class="mb-4"></div>
+                        <div id="options" class="space-y-2"></div>
+                        <button onclick="closeModal()"
+                            class="mt-6 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md shadow-sm text-gray-700">Close</button>
+                    </div>
+                </div>
+                <!-- Right Arrow -->
+                <button id="next-btn" aria-label="Next"
+                    class="absolute -right-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-2 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
         </div>
-      </div>
-      <button id="next-btn" aria-label="Next" class="absolute -right-8 top-1/2 -translate-y-1/2 text-4xl px-3 py-2 text-gray-500 hover:text-black bg-white rounded-full shadow-lg z-50">&#8594;</button>
-    </div>
-  </div>
 
-  <script>
+        <script>
     const grid = document.getElementById("grid");
     const answeredCount = document.getElementById("answered-count");
     const questions = [];
@@ -78,7 +103,6 @@
       currentQuestionIndex = questions.findIndex(q => q.id === id);
       const modal = document.getElementById("modal");
       const q = questions.find(q => q.id === id);
-      // Split question into title and content
       const parts = q.question.split(/\n\n/);
       const title = parts[0].replace(/^## /, "");
       const content = parts.slice(1).join("\n\n").replace(/\n/g, "<br>");
@@ -90,30 +114,25 @@
       for (const key in q.options) {
         const optBtn = document.createElement("button");
         optBtn.textContent = `${key}. ${q.options[key]}`;
-        // Set color based on user selection and correctness
+        optBtn.className = "block w-full text-left p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50";
         if (userAnswers[q.id]) {
           if (userAnswers[q.id] === key) {
             if (key === q.answer) {
-              optBtn.className = "block w-full text-left p-2 border rounded bg-green-300";
+              optBtn.className += " bg-green-200 border-green-400 ring-2 ring-green-300";
             } else {
-              optBtn.className = "block w-full text-left p-2 border rounded bg-red-300";
+              optBtn.className += " bg-red-200 border-red-400 ring-2 ring-red-300";
             }
-          } else {
-            optBtn.className = "block w-full text-left p-2 border rounded hover:bg-gray-100";
           }
-        } else {
-          optBtn.className = "block w-full text-left p-2 border rounded hover:bg-gray-100";
         }
         optBtn.onclick = () => {
           userAnswers[q.id] = key;
           answered.add(id);
           renderGrid();
-          openModal(id); // re-render modal to update option color, do not close
+          openModal(id);
         };
         optionsDiv.appendChild(optBtn);
       }
 
-      // Add prev/next button logic
       document.getElementById("prev-btn").onclick = showPrevQuestion;
       document.getElementById("next-btn").onclick = showNextQuestion;
 
@@ -135,7 +154,6 @@
       document.getElementById("modal").classList.add("hidden");
     }
 
-    // Keyboard navigation
     window.addEventListener('keydown', function(e) {
       if (document.getElementById('modal').classList.contains('hidden')) return;
       if (e.key === 'ArrowLeft') {
@@ -147,8 +165,7 @@
       }
     });
 
-    // Load questions
     loadQuestions();
   </script>
-</body>
+    </body>
 </html>
