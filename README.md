@@ -1,11 +1,19 @@
 # Let's Learn Some AWS
 
-This project is focused on learning and experimenting with AWS services. It includes various examples and exercises to understand AWS concepts and tools.
+This project provides a workflow to extract AWS exam questions from PDFs, convert them to Markdown and then to JSON, and display them in an interactive quiz website.
 
 ## Features
-- Extracts text from PDF files and converts it into Markdown format.
-- Extracts images from PDF files, filtering based on dimensions and content.
-- Handles PDFs with questions and answers, formatting them appropriately.
+- Extracts each question from PDF as a separate Markdown file.
+- Converts Markdown questions to structured JSON.
+- Extracts and saves images from PDFs, skipping blank/white images and the first image per page.
+- Removes "Most Voted" from options.
+- Extracts correct answers and formats them for quiz use.
+- Interactive quiz web UI (HTML/JS) with:
+  - Grid of questions, color-coded by answer status
+  - Modal for each question with separated title/content
+  - Option selection with immediate feedback
+  - Left/right arrow navigation (buttons and keyboard)
+  - Proper handling of newlines and formatting
 
 ## Prerequisites
 - Python installed
@@ -22,17 +30,21 @@ This project is focused on learning and experimenting with AWS services. It incl
    ```
 3. Install the required Python libraries:
    ```bash
-   pip install -r requirements.txt
+   pip install -r AIF-C01/requirements.txt
    ```
 
 ## Usage
-1. Place the input PDF file in the `pdf/` directory.
-2. Update the `input_pdf`, `output_dir`, and `images_dir` variables in `pdf_to_md_converter.py` as needed.
-3. Run the script:
+1. Place the input PDF file in the `AIF-C01/pdf/` directory.
+2. Update the `input_pdf`, `output_dir`, and `images_dir` variables in `AIF-C01/pdf_to_md_converter.py` as needed.
+3. Run the PDF-to-Markdown script:
    ```bash
-   python pdf_to_md_converter.py
+   python AIF-C01/pdf_to_md_converter.py
    ```
-4. The extracted Markdown files and images will be saved in the specified output directories.
+4. Run the Markdown-to-JSON script:
+   ```bash
+   python AIF-C01/md_to_json.py
+   ```
+5. Open `index.html` in your browser to use the interactive quiz UI.
 
 ## Contributing
 Feel free to submit issues or pull requests to improve the project.
