@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Grid</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white p-4 text-center">
+
+  <h1 class="text-xl font-semibold mb-4">
+    <span id="answered-count">0</span>/<span id="total-count">0</span>
+  </h1>
+
+  <div id="grid" class="grid grid-cols-10 gap-2 justify-center"></div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-xl w-full max-w-xl text-left">
+      <h2 class="text-lg font-bold mb-2" id="question-title">Question</h2>
+      <div id="options" class="space-y-2"></div>
+      <button onclick="closeModal()" class="mt-4 bg-gray-200 px-4 py-2 rounded">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById("grid");
+    const answeredCount = document.getElementById("answered-count");
+    const questions = [];
+    const answered = new Set();
+
+    async function loadQuestions() {
+      const response = await fetch("AIF-C01/questions.json");
+      const data = await response.json();
+      questions.push(...data);
+      document.getElementById("total-count").textContent = questions.length;
+      renderGrid();
+    }
+
+    function updateAnsweredCount() {
+      answeredCount.textContent = answered.size;
+    }
+
+    function renderGrid() {
+      grid.innerHTML = '';
+      questions.forEach(q => {
+        const btn = document.createElement("button");
+        btn.className = `w-10 h-10 border rounded ${q.answer ? 'bg-green-300' : 'bg-gray-100'}`;
+        btn.textContent = q.id;
+        btn.onclick = () => openModal(q.id);
+        grid.appendChild(btn);
+      });
+      updateAnsweredCount();
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById("modal");
+      const q = questions.find(q => q.id === id);
+      document.getElementById("question-title").innerHTML = q.question.replace("## ", "");
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = '';
+
+      for (const key in q.options) {
+        const optBtn = document.createElement("button");
+        optBtn.textContent = `${key}. ${q.options[key]}`;
+        optBtn.className = "block w-full text-left p-2 border rounded hover:bg-gray-100";
+        optBtn.onclick = () => {
+          q.answer = key;
+          answered.add(id);
+          renderGrid();
+          closeModal();
+        };
+        optionsDiv.appendChild(optBtn);
+      }
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+
+    // Load questions
+    loadQuestions();
+  </script>
+</body>
+</html>
