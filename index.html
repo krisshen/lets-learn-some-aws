@@ -16,11 +16,17 @@
 
   <!-- Modal -->
   <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white p-6 rounded-xl w-full max-w-xl text-left">
-      <h2 class="text-lg font-bold mb-2" id="question-title">Question</h2>
-      <div id="question" class="mb-4"></div>
-      <div id="options" class="space-y-2"></div>
-      <button onclick="closeModal()" class="mt-4 bg-gray-200 px-4 py-2 rounded">Close</button>
+    <div class="relative flex items-center justify-center w-full max-w-2xl mx-auto">
+      <button id="prev-btn" aria-label="Previous" class="absolute -left-8 top-1/2 -translate-y-1/2 text-4xl px-3 py-2 text-gray-500 hover:text-black bg-white rounded-full shadow-lg z-50">&#8592;</button>
+      <div class="bg-white p-6 rounded-xl w-full max-w-xl text-left flex items-start z-50">
+        <div class="flex-1 min-w-0">
+          <h2 class="text-lg font-bold mb-2" id="question-title">Question</h2>
+          <div id="question" class="mb-4"></div>
+          <div id="options" class="space-y-2"></div>
+          <button onclick="closeModal()" class="mt-4 bg-gray-200 px-4 py-2 rounded">Close</button>
+        </div>
+      </div>
+      <button id="next-btn" aria-label="Next" class="absolute -right-8 top-1/2 -translate-y-1/2 text-4xl px-3 py-2 text-gray-500 hover:text-black bg-white rounded-full shadow-lg z-50">&#8594;</button>
     </div>
   </div>
 
@@ -65,7 +71,11 @@
       updateAnsweredCount();
     }
 
+    let currentModalId = null;
+    let currentQuestionIndex = 0;
     function openModal(id) {
+      currentModalId = id;
+      currentQuestionIndex = questions.findIndex(q => q.id === id);
       const modal = document.getElementById("modal");
       const q = questions.find(q => q.id === id);
       // Split question into title and content
@@ -103,13 +113,39 @@
         optionsDiv.appendChild(optBtn);
       }
 
+      // Add prev/next button logic
+      document.getElementById("prev-btn").onclick = showPrevQuestion;
+      document.getElementById("next-btn").onclick = showNextQuestion;
+
       modal.classList.remove("hidden");
       modal.classList.add("flex");
+    }
+
+    function showPrevQuestion() {
+      const prevIndex = (currentQuestionIndex - 1 + questions.length) % questions.length;
+      openModal(questions[prevIndex].id);
+    }
+
+    function showNextQuestion() {
+      const nextIndex = (currentQuestionIndex + 1) % questions.length;
+      openModal(questions[nextIndex].id);
     }
 
     function closeModal() {
       document.getElementById("modal").classList.add("hidden");
     }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', function(e) {
+      if (document.getElementById('modal').classList.contains('hidden')) return;
+      if (e.key === 'ArrowLeft') {
+        showPrevQuestion();
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight') {
+        showNextQuestion();
+        e.preventDefault();
+      }
+    });
 
     // Load questions
     loadQuestions();
