@@ -17,6 +17,7 @@
   <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
     <div class="bg-white p-6 rounded-xl w-full max-w-xl text-left">
       <h2 class="text-lg font-bold mb-2" id="question-title">Question</h2>
+      <div id="question" class="mb-4"></div>
       <div id="options" class="space-y-2"></div>
       <button onclick="closeModal()" class="mt-4 bg-gray-200 px-4 py-2 rounded">Close</button>
     </div>
@@ -27,6 +28,7 @@
     const answeredCount = document.getElementById("answered-count");
     const questions = [];
     const answered = new Set();
+    const userAnswers = {};
 
     async function loadQuestions() {
       const response = await fetch("AIF-C01/questions.json");
@@ -43,8 +45,18 @@
     function renderGrid() {
       grid.innerHTML = '';
       questions.forEach(q => {
+        let btnClass = 'w-10 h-10 border rounded ';
+        if (userAnswers[q.id]) {
+          if (userAnswers[q.id] === q.answer) {
+            btnClass += 'bg-green-300';
+          } else {
+            btnClass += 'bg-red-300';
+          }
+        } else {
+          btnClass += 'bg-gray-100';
+        }
         const btn = document.createElement("button");
-        btn.className = `w-10 h-10 border rounded ${q.answer ? 'bg-green-300' : 'bg-gray-100'}`;
+        btn.className = btnClass;
         btn.textContent = q.id;
         btn.onclick = () => openModal(q.id);
         grid.appendChild(btn);
@@ -55,19 +67,37 @@
     function openModal(id) {
       const modal = document.getElementById("modal");
       const q = questions.find(q => q.id === id);
-      document.getElementById("question-title").innerHTML = q.question.replace("## ", "");
+      // Split question into title and content
+      const parts = q.question.split(/\n\n/);
+      const title = parts[0].replace(/^## /, "");
+      const content = parts.slice(1).join("\n\n").replace(/\n/g, "<br>");
+      document.getElementById("question-title").textContent = title;
+      document.getElementById("question").innerHTML = content;
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = '';
 
       for (const key in q.options) {
         const optBtn = document.createElement("button");
         optBtn.textContent = `${key}. ${q.options[key]}`;
-        optBtn.className = "block w-full text-left p-2 border rounded hover:bg-gray-100";
+        // Set color based on user selection and correctness
+        if (userAnswers[q.id]) {
+          if (userAnswers[q.id] === key) {
+            if (key === q.answer) {
+              optBtn.className = "block w-full text-left p-2 border rounded bg-green-300";
+            } else {
+              optBtn.className = "block w-full text-left p-2 border rounded bg-red-300";
+            }
+          } else {
+            optBtn.className = "block w-full text-left p-2 border rounded hover:bg-gray-100";
+          }
+        } else {
+          optBtn.className = "block w-full text-left p-2 border rounded hover:bg-gray-100";
+        }
         optBtn.onclick = () => {
-          q.answer = key;
+          userAnswers[q.id] = key;
           answered.add(id);
           renderGrid();
-          closeModal();
+          openModal(id); // re-render modal to update option color, do not close
         };
         optionsDiv.appendChild(optBtn);
       }
