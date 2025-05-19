@@ -1,4 +1,5 @@
 import os
+import re
 from PyPDF2 import PdfReader
 import fitz  # PyMuPDF
 try:
@@ -25,7 +26,6 @@ def extract_questions_from_text(page_text):
     - Removes ' Most Voted' from option lines only, even if it appears in the middle of a line or after a line break.
     - Places 'Correct Answer:' lines as a separate line.
     """
-    import re
     questions = []
     current = []
     in_question = False
@@ -164,7 +164,6 @@ def process_pdf(input_pdf, output_dir, images_dir):
         # Extract all questions from the page
         questions = extract_questions_from_text(page_text)
         for q in questions:
-            import re
             m = re.search(r"Question #(\d+)", q)
             if m:
                 qnum = m.group(1)
@@ -176,7 +175,7 @@ def process_pdf(input_pdf, output_dir, images_dir):
 
 if __name__ == "__main__":
     # Define the input PDF file and output directories
-    input_pdf = "pdf/with_answers_unlocked.pdf"
+    input_pdf = "pdf/with_answers.pdf"
     output_dir = "pages"
     images_dir = "images"
 

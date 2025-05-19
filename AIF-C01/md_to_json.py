@@ -33,11 +33,15 @@ for filename in sorted(os.listdir(PAGES_DIR)):
         if opt_match:
             options[opt_match.group(1)] = opt_match.group(2)
         elif ans_match:
-            # If the next line exists, use its first non-space character as the answer
+            # If the next line exists, use all chars before the first space as the answer
             if idx + 1 < len(lines):
                 next_line = lines[idx + 1].strip()
                 if next_line:
-                    answer = next_line[0]
+                    answer_str = next_line.split(' ', 1)[0]
+                    if ',' in answer_str:
+                        answer = [a.strip() for a in answer_str.split(',') if a.strip()]
+                    else:
+                        answer = answer_str
                     skip_next = True
             # Otherwise, fallback to previous logic
             else:

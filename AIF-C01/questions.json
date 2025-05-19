@@ -438,7 +438,7 @@
       "D": "Cost optimization",
       "E": "Loosely coupled microservices "
     },
-    "answer": "B"
+    "answer": "BC"
   },
   {
     "id": 41,
@@ -494,7 +494,7 @@
       "D": "Amazon Bedrock",
       "E": "Amazon Rekognition "
     },
-    "answer": "B"
+    "answer": "BD"
   },
   {
     "id": 46,
@@ -539,7 +539,7 @@
       "D": "Use the Recall-Oriented Understudy for Gisting Evaluation (ROUGE) technique to ensure that the model is 100% accurate.",
       "E": "Ensure that the model's inference time is within the accepted limits. "
     },
-    "answer": "A"
+    "answer": "AC"
   },
   {
     "id": 50,
@@ -782,7 +782,7 @@
       "D": "Avoid overfitting on the training data.",
       "E": "Apply prompt engineering techniques. "
     },
-    "answer": "A"
+    "answer": "AC"
   },
   {
     "id": 72,
@@ -1378,7 +1378,7 @@
       "D": "Amazon S3 Intelligent-Tiering",
       "E": "Amazon S3 Standard "
     },
-    "answer": "A"
+    "answer": "AD"
   },
   {
     "id": 127,
@@ -1622,7 +1622,7 @@
       "D": "Amazon CloudWatch",
       "E": "AWS CloudTrail "
     },
-    "answer": "A"
+    "answer": "AB"
   },
   {
     "id": 150,
