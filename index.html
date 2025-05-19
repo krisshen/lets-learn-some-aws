@@ -78,11 +78,22 @@
       grid.innerHTML = '';
       questions.forEach(q => {
         let btnClass = 'w-10 h-10 border rounded ';
+        const isMulti = typeof q.answer === 'string' ? q.answer.length > 1 : Array.isArray(q.answer);
         if (userAnswers[q.id]) {
-          if (userAnswers[q.id] === q.answer) {
-            btnClass += 'bg-green-300';
+          if (isMulti) {
+            let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
+            let selectedSet = new Set(userAnswers[q.id]);
+            if (selectedSet.size === correctSet.size && [...correctSet].every(a => selectedSet.has(a))) {
+              btnClass += 'bg-green-300';
+            } else {
+              btnClass += 'bg-gray-100';
+            }
           } else {
-            btnClass += 'bg-red-300';
+            if (userAnswers[q.id] === q.answer) {
+              btnClass += 'bg-green-300';
+            } else {
+              btnClass += 'bg-red-300';
+            }
           }
         } else {
           btnClass += 'bg-gray-100';
@@ -111,24 +122,68 @@
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = '';
 
+      // Multi-selection logic
+      const isMulti = typeof q.answer === 'string' ? q.answer.length > 1 : Array.isArray(q.answer);
+      if (isMulti) {
+        if (!userAnswers[q.id]) userAnswers[q.id] = [];
+      }
+
       for (const key in q.options) {
         const optBtn = document.createElement("button");
         optBtn.textContent = `${key}. ${q.options[key]}`;
         optBtn.className = "block w-full text-left p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50";
-        if (userAnswers[q.id]) {
-          if (userAnswers[q.id] === key) {
-            if (key === q.answer) {
+        if (isMulti) {
+          if (userAnswers[q.id].includes(key)) {
+            // Highlight correct selections green, incorrect red
+            let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
+            if (correctSet.has(key)) {
               optBtn.className += " bg-green-200 border-green-400 ring-2 ring-green-300";
             } else {
               optBtn.className += " bg-red-200 border-red-400 ring-2 ring-red-300";
             }
           }
+        } else {
+          if (userAnswers[q.id]) {
+            if (userAnswers[q.id] === key) {
+              if (key === q.answer) {
+                optBtn.className += " bg-green-200 border-green-400 ring-2 ring-green-300";
+              } else {
+                optBtn.className += " bg-red-200 border-red-400 ring-2 ring-red-300";
+              }
+            }
+          }
         }
         optBtn.onclick = () => {
-          userAnswers[q.id] = key;
-          answered.add(id);
-          renderGrid();
-          openModal(id);
+          if (isMulti) {
+            const idx = userAnswers[q.id].indexOf(key);
+            if (idx === -1) {
+              let maxSelections = (typeof q.answer === 'string' ? q.answer.length : q.answer.length);
+              if (userAnswers[q.id].length < maxSelections) {
+                userAnswers[q.id].push(key);
+              }
+            } else {
+              userAnswers[q.id].splice(idx, 1);
+            }
+            // Check if all correct answers are selected
+            let correct = false;
+            let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
+            let selectedSet = new Set(userAnswers[q.id]);
+            if (selectedSet.size === correctSet.size && [...correctSet].every(a => selectedSet.has(a))) {
+              correct = true;
+            }
+            if (correct) {
+              answered.add(id);
+            } else {
+              answered.delete(id);
+            }
+            renderGrid();
+            openModal(id);
+          } else {
+            userAnswers[q.id] = key;
+            answered.add(id);
+            renderGrid();
+            openModal(id);
+          }
         };
         optionsDiv.appendChild(optBtn);
       }
