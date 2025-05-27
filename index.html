@@ -2,13 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Quiz Grid</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body
-        class="bg-gradient-to-b from-sky-50 to-white min-h-screen text-center p-6 font-sans">
+        class="bg-gradient-to-b from-sky-50 to-white min-h-screen text-center p-4 sm:p-6 font-sans">
 
-        <h1 class="text-2xl font-semibold mb-6 text-gray-800">
+        <h1 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-gray-800">
             AIF-C01<br />
             <span id="answered-count"
                 class="text-green-600 font-bold">0</span>/<span
@@ -16,37 +17,37 @@
         </h1>
 
         <div id="grid"
-            class="grid grid-cols-10 gap-3 justify-center text-sm"></div>
+            class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2 sm:gap-3 justify-center text-sm max-w-4xl mx-auto"></div>
 
         <!-- Modal -->
         <div id="modal"
-            class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
             <div
                 class="relative flex items-center justify-center w-full max-w-2xl mx-auto">
                 <!-- Left Arrow -->
                 <button id="prev-btn" aria-label="Previous"
-                    class="absolute -left-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-2 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                    class="absolute -left-2 sm:-left-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 active:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-1 sm:p-2 transition touch-manipulation">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
                 <div
-                    class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-xl text-left flex items-start z-50 border border-gray-200">
+                    class="bg-white p-4 sm:p-6 rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-xl text-left flex items-start z-50 border border-gray-200 max-h-[80vh] overflow-y-auto">
                     <div class="flex-1 min-w-0">
-                        <h2 class="text-lg font-bold mb-2"
+                        <h2 class="text-base sm:text-lg font-bold mb-2"
                             id="question-title">Question</h2>
-                        <div id="question" class="mb-4"></div>
+                        <div id="question" class="mb-4 text-sm sm:text-base"></div>
                         <div id="options" class="space-y-2"></div>
                         <button onclick="closeModal()"
-                            class="mt-6 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md shadow-sm text-gray-700">Close</button>
+                            class="mt-6 bg-gray-100 hover:bg-gray-200 active:bg-gray-200 px-4 py-2 rounded-md shadow-sm text-gray-700 text-sm sm:text-base touch-manipulation">Close</button>
                     </div>
                 </div>
                 <!-- Right Arrow -->
                 <button id="next-btn" aria-label="Next"
-                    class="absolute -right-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-2 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                    class="absolute -right-2 sm:-right-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 active:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-1 sm:p-2 transition touch-manipulation">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2" d="M9 5l7 7-7 7" />
@@ -77,7 +78,7 @@
     function renderGrid() {
       grid.innerHTML = '';
       questions.forEach(q => {
-        let btnClass = 'w-10 h-10 border rounded ';
+        let btnClass = 'w-10 h-10 sm:w-12 sm:h-12 border rounded touch-manipulation ';
         const isMulti = typeof q.answer === 'string' ? q.answer.length > 1 : Array.isArray(q.answer);
         if (userAnswers[q.id]) {
           if (isMulti) {
@@ -131,7 +132,7 @@
       for (const key in q.options) {
         const optBtn = document.createElement("button");
         optBtn.textContent = `${key}. ${q.options[key]}`;
-        optBtn.className = "block w-full text-left p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50";
+        optBtn.className = "block w-full text-left p-2 sm:p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50 active:bg-blue-50 text-sm sm:text-base touch-manipulation";
         if (isMulti) {
           if (userAnswers[q.id].includes(key)) {
             // Highlight correct selections green, incorrect red
@@ -209,6 +210,7 @@
       document.getElementById("modal").classList.add("hidden");
     }
 
+    // Enhanced mobile keyboard navigation
     window.addEventListener('keydown', function(e) {
       if (document.getElementById('modal').classList.contains('hidden')) return;
       if (e.key === 'ArrowLeft') {
@@ -217,8 +219,39 @@
       } else if (e.key === 'ArrowRight') {
         showNextQuestion();
         e.preventDefault();
+      } else if (e.key === 'Escape') {
+        closeModal();
+        e.preventDefault();
       }
     });
+
+    // Touch gestures for mobile navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.getElementById('modal').addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    document.getElementById('modal').addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+    
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - next question
+          showNextQuestion();
+        } else {
+          // Swipe right - previous question
+          showPrevQuestion();
+        }
+      }
+    }
 
     loadQuestions();
   </script>
