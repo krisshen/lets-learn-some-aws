@@ -95,11 +95,13 @@
       const data = await response.json();
       questions.push(...data);
       document.getElementById("total-count").textContent = questions.length;
+      loadState();
       renderGrid();
     }
 
     function updateAnsweredCount() {
       answeredCount.textContent = answered.size;
+      saveState();
     }
 
     function renderGrid() {
@@ -210,11 +212,13 @@
               answered.delete(id);
             }
             renderGrid();
+            saveState();
             openModal(id);
           } else {
             userAnswers[q.id] = key;
             answered.add(id);
             renderGrid();
+            saveState();
             openModal(id);
           }
         };
@@ -346,6 +350,33 @@
         }
         
         renderGrid();
+        saveState();
+    }
+
+    function saveState() {
+      localStorage.setItem('answered', JSON.stringify(Array.from(answered)));
+      localStorage.setItem('markedQuestions', JSON.stringify(Array.from(markedQuestions)));
+      localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+    }
+
+    function loadState() {
+      const savedAnswered = localStorage.getItem('answered');
+      const savedMarkedQuestions = localStorage.getItem('markedQuestions');
+      const savedUserAnswers = localStorage.getItem('userAnswers');
+
+      if (savedAnswered) {
+        const answeredArray = JSON.parse(savedAnswered);
+        answeredArray.forEach(id => answered.add(id));
+      }
+
+      if (savedMarkedQuestions) {
+        const markedArray = JSON.parse(savedMarkedQuestions);
+        markedArray.forEach(id => markedQuestions.add(id));
+      }
+
+      if (savedUserAnswers) {
+        Object.assign(userAnswers, JSON.parse(savedUserAnswers));
+      }
     }
 
     loadQuestions();
