@@ -215,8 +215,20 @@
             saveState();
             openModal(id);
           } else {
-            userAnswers[q.id] = key;
-            answered.add(id);
+            // Single choice - add unselect functionality
+            if (userAnswers[q.id] === key) {
+              // Unselect if clicking the same option again
+              delete userAnswers[q.id];
+              answered.delete(id);
+            } else {
+              // Select new option
+              userAnswers[q.id] = key;
+              if (key === q.answer) {
+                answered.add(id);
+              } else {
+                answered.delete(id);
+              }
+            }
             renderGrid();
             saveState();
             openModal(id);
@@ -305,6 +317,21 @@
         }
       }
     }
+
+    // Mouse wheel navigation for questions
+    document.getElementById('modal').addEventListener('wheel', function(e) {
+      if (document.getElementById('modal').classList.contains('hidden')) return;
+      
+      e.preventDefault();
+      
+      if (e.deltaY > 0) {
+        // Scroll down - next question
+        showNextQuestion();
+      } else {
+        // Scroll up - previous question
+        showPrevQuestion();
+      }
+    });
 
     function copyQuestion() {
         const questionTitle = document.getElementById("question-title").textContent;
