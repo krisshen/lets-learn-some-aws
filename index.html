@@ -117,10 +117,20 @@
           if (isMulti) {
             let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
             let selectedSet = new Set(userAnswers[q.id]);
-            if (selectedSet.size === correctSet.size && [...correctSet].every(a => selectedSet.has(a))) {
-              btnClass += 'bg-green-300 ';
+            
+            // Check if any answers have been selected
+            if (selectedSet.size > 0) {
+                // Check if all selected answers are correct
+                const allCorrect = [...selectedSet].every(a => correctSet.has(a));
+                const anyWrong = [...selectedSet].some(a => !correctSet.has(a));
+                
+                if (allCorrect) {
+                    btnClass += 'bg-green-300 ';
+                } else if (anyWrong) {
+                    btnClass += 'bg-red-300 '; // Mark as red if any selected answer is wrong
+                }
             } else {
-              btnClass += 'bg-gray-100 ';
+                btnClass += 'bg-gray-100 '; // Default to gray if no answers are selected
             }
           } else {
             if (userAnswers[q.id] === q.answer) {
