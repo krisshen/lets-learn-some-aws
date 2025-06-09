@@ -109,12 +109,29 @@
       questions.forEach(q => {
         let btnClass = 'w-10 h-10 sm:w-12 sm:h-12 border rounded touch-manipulation ';
         const isMulti = q.question_type === 'multi_select';
+        const isHotspotDropdown = q.question_type === 'hotspot_dropdown';
         
         // Check if question is marked
         if (markedQuestions.has(q.id)) {
           btnClass += 'bg-yellow-300 ';
         } else if (userAnswers[q.id]) {
-          if (isMulti) {
+          if (isHotspotDropdown) {
+            // Check if all dropdown selections are correct
+            const allAnswered = q.items.every(item => 
+              userAnswers[q.id][item.prompt] && userAnswers[q.id][item.prompt] !== ""
+            );
+            const allCorrect = q.items.every(item => 
+              userAnswers[q.id][item.prompt] === item.answer
+            );
+            
+            if (allAnswered && allCorrect) {
+              btnClass += 'bg-green-300 ';
+            } else if (allAnswered && !allCorrect) {
+              btnClass += 'bg-red-300 ';
+            } else {
+              btnClass += 'bg-gray-100 '; // Some dropdowns not answered
+            }
+          } else if (isMulti) {
             let correctSet = new Set(q.answer.split(''));
             let selectedSet = new Set(userAnswers[q.id]);
             
@@ -171,17 +188,87 @@
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = '';
 
-      // Multi-selection logic
+      // Multi-selection and HOTSPOT logic
       const isMulti = q.question_type === 'multi_select';
+      const isHotspotDropdown = q.question_type === 'hotspot_dropdown';
+      
       if (isMulti) {
         if (!userAnswers[q.id]) userAnswers[q.id] = [];
+      } else if (isHotspotDropdown) {
+        if (!userAnswers[q.id]) userAnswers[q.id] = {};
       }
 
-      for (const key in q.options) {
-        const optBtn = document.createElement("button");
-        optBtn.textContent = `${key}. ${q.options[key]}`;
-        optBtn.className = "block w-full text-left p-2 sm:p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50 active:bg-blue-50 text-sm sm:text-base touch-manipulation";
-        if (isMulti) {
+      if (isHotspotDropdown) {
+        // Render dropdown items
+        q.items.forEach((item, index) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "mb-4 p-3 border rounded-lg bg-gray-50";
+          
+          const promptDiv = document.createElement("div");
+          promptDiv.textContent = item.prompt;
+          promptDiv.className = "mb-2 font-medium text-sm sm:text-base";
+          itemDiv.appendChild(promptDiv);
+          
+          const selectDiv = document.createElement("select");
+          selectDiv.className = "w-full p-2 border rounded-md text-sm sm:text-base";
+          
+          // Add default option
+          const defaultOption = document.createElement("option");
+          defaultOption.value = "";
+          defaultOption.textContent = "Select an option...";
+          selectDiv.appendChild(defaultOption);
+          
+          // Add all options
+          item.options.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.textContent = option;
+            if (userAnswers[q.id][item.prompt] === option) {
+              optionElement.selected = true;
+            }
+            selectDiv.appendChild(optionElement);
+          });
+          
+          // Color coding based on correctness
+          if (userAnswers[q.id][item.prompt]) {
+            if (userAnswers[q.id][item.prompt] === item.answer) {
+              selectDiv.className += " border-green-400 bg-green-50";
+            } else {
+              selectDiv.className += " border-red-400 bg-red-50";
+            }
+          }
+          
+          selectDiv.onchange = (e) => {
+            userAnswers[q.id][item.prompt] = e.target.value;
+            
+            // Check if all dropdowns are answered and correct
+            const allAnswered = q.items.every(item => 
+              userAnswers[q.id][item.prompt] && userAnswers[q.id][item.prompt] !== ""
+            );
+            const allCorrect = q.items.every(item => 
+              userAnswers[q.id][item.prompt] === item.answer
+            );
+            
+            if (allAnswered && allCorrect) {
+              answered.add(id);
+            } else {
+              answered.delete(id);
+            }
+            
+            renderGrid();
+            saveState();
+            openModal(id);
+          };
+          
+          itemDiv.appendChild(selectDiv);
+          optionsDiv.appendChild(itemDiv);
+        });
+      } else {
+        for (const key in q.options) {
+          const optBtn = document.createElement("button");
+          optBtn.textContent = `${key}. ${q.options[key]}`;
+          optBtn.className = "block w-full text-left p-2 sm:p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50 active:bg-blue-50 text-sm sm:text-base touch-manipulation";
+          if (isMulti) {
           if (userAnswers[q.id].includes(key)) {
             // Highlight correct selections green, incorrect red
             let correctSet = new Set(q.answer.split(''));
@@ -249,6 +336,7 @@
           }
         };
         optionsDiv.appendChild(optBtn);
+        }
       }
 
       document.getElementById("prev-btn").onclick = showPrevQuestion;
