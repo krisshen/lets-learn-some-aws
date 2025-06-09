@@ -9,6 +9,26 @@ option_pattern = re.compile(r'^- ([A-Z])\. (.+)$')
 answer_pattern = re.compile(r'^Correct Answer:?\s*(.*)$', re.IGNORECASE)
 question_number_pattern = re.compile(r'Question\s*#(\d+)', re.IGNORECASE)
 
+
+def determine_question_type(question_text, options):
+    """
+    Determine the question type based on the content.
+    Returns: 'single_select', 'multi_select', or 'hotspot_dropdown'
+    """
+    question_lower = question_text.lower()
+    
+    # Check for hotspot questions
+    if "hotspot" in question_lower:
+        return "hotspot_dropdown"
+    
+    # Check for multi-select: if there's option "E" then this is multi_select
+    if "E" in options:
+        return "multi_select"
+    
+    # Default to single select
+    return "single_select"
+
+
 questions = []
 
 for filename in sorted(os.listdir(PAGES_DIR)):
@@ -56,9 +76,14 @@ for filename in sorted(os.listdir(PAGES_DIR)):
     while qtext and not qtext[-1].strip():
         qtext.pop()
     question_md = '\n'.join(qtext)
+    
+    # Determine question type
+    question_type = determine_question_type(question_md, options)
+    
     questions.append({
         'id': qid,
         'question': question_md,
+        'question_type': question_type,
         'options': options,
         'answer': answer
     })
