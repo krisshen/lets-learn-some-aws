@@ -108,26 +108,30 @@
       grid.innerHTML = '';
       questions.forEach(q => {
         let btnClass = 'w-10 h-10 sm:w-12 sm:h-12 border rounded touch-manipulation ';
-        const isMulti = typeof q.answer === 'string' ? q.answer.length > 1 : Array.isArray(q.answer);
+        const isMulti = q.question_type === 'multi_select';
         
         // Check if question is marked
         if (markedQuestions.has(q.id)) {
           btnClass += 'bg-yellow-300 ';
         } else if (userAnswers[q.id]) {
           if (isMulti) {
-            let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
+            let correctSet = new Set(q.answer.split(''));
             let selectedSet = new Set(userAnswers[q.id]);
             
-            // Check if any answers have been selected
+            // Check if answers have been selected
             if (selectedSet.size > 0) {
-                // Check if all selected answers are correct
-                const allCorrect = [...selectedSet].every(a => correctSet.has(a));
+                // Check if all correct answers are selected and no wrong answers
+                const allCorrectSelected = selectedSet.size === correctSet.size && 
+                                         [...correctSet].every(a => selectedSet.has(a)) &&
+                                         [...selectedSet].every(a => correctSet.has(a));
                 const anyWrong = [...selectedSet].some(a => !correctSet.has(a));
                 
-                if (allCorrect) {
+                if (allCorrectSelected) {
                     btnClass += 'bg-green-300 ';
                 } else if (anyWrong) {
                     btnClass += 'bg-red-300 '; // Mark as red if any selected answer is wrong
+                } else {
+                    btnClass += 'bg-gray-100 '; // Gray if only some correct answers selected
                 }
             } else {
                 btnClass += 'bg-gray-100 '; // Default to gray if no answers are selected
@@ -168,7 +172,7 @@
       optionsDiv.innerHTML = '';
 
       // Multi-selection logic
-      const isMulti = typeof q.answer === 'string' ? q.answer.length > 1 : Array.isArray(q.answer);
+      const isMulti = q.question_type === 'multi_select';
       if (isMulti) {
         if (!userAnswers[q.id]) userAnswers[q.id] = [];
       }
@@ -180,7 +184,7 @@
         if (isMulti) {
           if (userAnswers[q.id].includes(key)) {
             // Highlight correct selections green, incorrect red
-            let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
+            let correctSet = new Set(q.answer.split(''));
             if (correctSet.has(key)) {
               optBtn.className += " bg-green-200 border-green-400 ring-2 ring-green-300";
             } else {
@@ -202,7 +206,7 @@
           if (isMulti) {
             const idx = userAnswers[q.id].indexOf(key);
             if (idx === -1) {
-              let maxSelections = (typeof q.answer === 'string' ? q.answer.length : q.answer.length);
+              let maxSelections = q.answer.length;
               if (userAnswers[q.id].length < maxSelections) {
                 userAnswers[q.id].push(key);
               }
@@ -211,7 +215,7 @@
             }
             // Check if all correct answers are selected
             let correct = false;
-            let correctSet = new Set(typeof q.answer === 'string' ? q.answer.split('') : q.answer);
+            let correctSet = new Set(q.answer.split(''));
             let selectedSet = new Set(userAnswers[q.id]);
             if (selectedSet.size === correctSet.size && [...correctSet].every(a => selectedSet.has(a))) {
               correct = true;
