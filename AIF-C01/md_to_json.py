@@ -29,6 +29,19 @@ def determine_question_type(question_text, options):
     return "single_select"
 
 
+# Load existing questions if the file exists
+existing_questions = {}
+if os.path.exists(OUTPUT_JSON):
+    try:
+        with open(OUTPUT_JSON, 'r', encoding='utf-8') as f:
+            existing_data = json.load(f)
+            # Convert to dict with id as key for easier lookup
+            existing_questions = {q['id']: q for q in existing_data}
+        print(f"Loaded {len(existing_questions)} existing questions from {OUTPUT_JSON}")
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"Error loading existing questions: {e}. Starting fresh.")
+        existing_questions = {}
+
 questions = []
 
 for filename in sorted(os.listdir(PAGES_DIR)):
@@ -80,13 +93,31 @@ for filename in sorted(os.listdir(PAGES_DIR)):
     # Determine question type
     question_type = determine_question_type(question_md, options)
     
-    questions.append({
+    # Create new question data
+    new_question = {
         'id': qid,
         'question': question_md,
         'question_type': question_type,
         'options': options,
         'answer': answer
-    })
+    }
+    
+    # Check if this question already exists
+    if qid in existing_questions:
+        # Update existing question with new data
+        existing_questions[qid].update(new_question)
+        print(f"Updated existing question #{qid}")
+    else:
+        # Add new question
+        existing_questions[qid] = new_question
+        print(f"Added new question #{qid}")
+    
+    questions.append(new_question)
+
+# Convert back to list and sort by id
+final_questions = sorted(existing_questions.values(), key=lambda q: q['id'])
 
 with open(OUTPUT_JSON, 'w', encoding='utf-8') as f:
-    json.dump(sorted(questions, key=lambda q: q['id']), f, indent=2, ensure_ascii=False)
+    json.dump(final_questions, f, indent=2, ensure_ascii=False)
+
+print(f"Successfully saved {len(final_questions)} questions to {OUTPUT_JSON}")

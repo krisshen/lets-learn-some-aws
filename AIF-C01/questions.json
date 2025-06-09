@@ -1364,7 +1364,49 @@
     "question": "## Question #114\n\nHOTSPOT - A company wants to build an ML application.\n\nSelect and order the correct steps from the following list to develop a well-architected ML workload. Each step should be selected one time.",
     "question_type": "hotspot_dropdown",
     "options": {},
-    "answer": null
+    "answer": null,
+    "items": [
+      {
+        "prompt": "Step 1",
+        "options": [
+          "Deploy model",
+          "Develop model",
+          "Monitor model",
+          "Define business goal and frame ML problem"
+        ],
+        "answer": "Define business goal and frame ML problem"
+      },
+      {
+        "prompt": "Step 2",
+        "options": [
+          "Deploy model",
+          "Develop model",
+          "Monitor model",
+          "Define business goal and frame ML problem"
+        ],
+        "answer": "Develop model"
+      },
+      {
+        "prompt": "Step 3",
+        "options": [
+          "Deploy model",
+          "Develop model",
+          "Monitor model",
+          "Define business goal and frame ML problem"
+        ],
+        "answer": "Deploy model"
+      },
+      {
+        "prompt": "Step 4",
+        "options": [
+          "Deploy model",
+          "Develop model",
+          "Monitor model",
+          "Define business goal and frame ML problem"
+        ],
+        "answer": "Monitor model"
+      }
+    ]
   },
   {
     "id": 115,
@@ -1491,7 +1533,33 @@
     "question": "## Question #125\n\nHOTSPOT - A company has developed a large language model (LLM) and wants to make the LLM available to multiple internal teams. The company needs to select the appropriate inference mode for each team.\n\nSelect the correct inference mode from the following list for each use case. Each inference mode should be selected one or more times.",
     "question_type": "hotspot_dropdown",
     "options": {},
-    "answer": null
+    "answer": null,
+    "items": [
+      {
+        "prompt": "The company's chatbot needs predictions from the LLM to understand users' intent with minimal latency.",
+        "options": [
+          "Batch transform",
+          "Real-time inference"
+        ],
+        "answer": "Real-time inference"
+      },
+      {
+        "prompt": "A data processing job needs to query the LLM to process gigabytes of text files on weekends.",
+        "options": [
+          "Batch transform",
+          "Real-time inference"
+        ],
+        "answer": "Batch transform"
+      },
+      {
+        "prompt": "The company's engineering team needs to create an API that can process small pieces of text content and provide low-latency predictions.",
+        "options": [
+          "Batch transform",
+          "Real-time inference"
+        ],
+        "answer": "Real-time inference"
+      }
+    ]
   },
   {
     "id": 126,
@@ -1607,7 +1675,41 @@
     "question": "## Question #135\n\nHOTSPOT - A company wants to develop ML applications to improve business operations and efficiency.\n\nSelect the correct ML paradigm from the following list for each use case. Each ML paradigm should be selected one or more times.",
     "question_type": "hotspot_dropdown",
     "options": {},
-    "answer": null
+    "answer": null,
+    "items": [
+      {
+        "prompt": "Binary classification",
+        "options": [
+          "Supervised learning",
+          "Unsupervised learning"
+        ],
+        "answer": "Supervised learning"
+      },
+      {
+        "prompt": "Multi-class classification",
+        "options": [
+          "Supervised learning",
+          "Unsupervised learning"
+        ],
+        "answer": "Supervised learning"
+      },
+      {
+        "prompt": "K-means clustering",
+        "options": [
+          "Supervised learning",
+          "Unsupervised learning"
+        ],
+        "answer": "Unsupervised learning"
+      },
+      {
+        "prompt": "Dimensionality reduction",
+        "options": [
+          "Supervised learning",
+          "Unsupervised learning"
+        ],
+        "answer": "Unsupervised learning"
+      }
+    ]
   },
   {
     "id": 136,
@@ -1698,7 +1800,36 @@
     "question": "## Question #143\n\nHOTSPOT - A company is training its employees on how to structure prompts for foundation models.\n\nSelect the correct prompt engineering technique from the following list for each prompt template. Each prompt engineering technique should be selected one time.",
     "question_type": "hotspot_dropdown",
     "options": {},
-    "answer": null
+    "answer": null,
+    "items": [
+      {
+        "prompt": "Classify the following text as either sports, politics, or entertainment: [input text].",
+        "options": [
+          "Chain-of-thought reasoning",
+          "Few-shot learning",
+          "Zero-shot learning"
+        ],
+        "answer": "Zero-shot learning"
+      },
+      {
+        "prompt": "A [image 1], [image 2], and [image 3] are examples of [target class]. Classify the following image as [target class].",
+        "options": [
+          "Chain-of-thought reasoning",
+          "Few-shot learning",
+          "Zero-shot learning"
+        ],
+        "answer": "Few-shot learning"
+      },
+      {
+        "prompt": "[Question.] [Instructions to follow.] Think step by step and walk me through your thinking.",
+        "options": [
+          "Chain-of-thought reasoning",
+          "Few-shot learning",
+          "Zero-shot learning"
+        ],
+        "answer": "Chain-of-thought reasoning"
+      }
+    ]
   },
   {
     "id": 144,
@@ -1837,6 +1968,35 @@
     "id": 155,
     "question": "## Question #155\n\nHOTSPOT - A company wants more customized responses to its generative AI models’ prompts.\n\nSelect the correct customization methodology from the following list for each use case. Each use case should be selected one time.",
     "question_type": "hotspot_dropdown",
+    "items": [
+      {
+        "prompt": "The models must be taught a new domain-specific task",
+        "options": [
+          "Continued pre-training",
+          "Data augmentation",
+          "Model fine-tuning"
+        ],
+        "answer": "Model fine-tuning"
+      },
+      {
+        "prompt": "A limited amount of labeled data is available and more data is needed",
+        "options": [
+          "Continued pre-training",
+          "Data augmentation",
+          "Model fine-tuning"
+        ],
+        "answer": "Data augmentation"
+      },
+      {
+        "prompt": "Only unlabeled data is available",
+        "options": [
+          "Continued pre-training",
+          "Data augmentation",
+          "Model fine-tuning"
+        ],
+        "answer": "Continued pre-training"
+      }
+    ],
     "options": {},
     "answer": null
   }
