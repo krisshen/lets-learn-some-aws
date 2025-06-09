@@ -102,7 +102,7 @@ def save_markdown(output_dir, question_number, formatted_text):
 
 
 def extract_images(pdf_document, question_number, images_dir, page_index, contains_hotspot):
-    """Extract images from a PDF page and save them using the question number, with hotspot and size filtering. Skips blank (all white) images, and skips the first image if it is always blank."""
+    """Extract images from a PDF page and save them using the question number, with hotspot and size filtering."""
     pdf_page = pdf_document[page_index]
     images = pdf_page.get_images(full=True)
     for img_index, img in enumerate(images):
@@ -112,28 +112,9 @@ def extract_images(pdf_document, question_number, images_dir, page_index, contai
         image_ext = base_image["ext"]
         width, height = base_image["width"], base_image["height"]
 
-        # Skip irrelevant images
-        if not contains_hotspot or width < 200 or height < 200:
+        # Skip irrelevant images (size is less than 300x300)
+        if not contains_hotspot or width < 300 or height < 300:
             continue
-
-        # Check if the image is blank (all white) if PIL is available
-        if Image and io:
-            try:
-                image = Image.open(io.BytesIO(image_bytes)).convert("L")  # grayscale
-                extrema = image.getextrema()
-                # If all pixels are 255 (white), skip
-                if extrema == (255, 255):
-                    print(f"Skipping blank (all white) image {img_index + 1} for question {question_number}")
-                    continue
-                # Also check if the image is nearly all white (e.g., >99% white)
-                white_pixels = sum(1 for px in image.getdata() if px == 255)
-                total_pixels = width * height
-                if white_pixels / total_pixels > 0.99:
-                    print(f"Skipping nearly blank (all white) image {img_index + 1} for question {question_number}")
-                    continue
-            except Exception as e:
-                print(f"Error checking image {img_index + 1} for question {question_number}: {e}")
-                continue
 
         # Save the image with question number
         print(f"Extracting image {img_index + 1} for question {question_number} with dimensions {width}x{height}")
@@ -175,7 +156,7 @@ def process_pdf(input_pdf, output_dir, images_dir):
 
 if __name__ == "__main__":
     # Define the input PDF file and output directories
-    input_pdf = "pdf/with_answers.pdf"
+    input_pdf = "pdf/with_answers.pdf" # only pdf with answers needed here
     output_dir = "pages"
     images_dir = "images"
 
