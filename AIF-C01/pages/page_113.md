@@ -10,4 +10,4 @@ Which ML model type meets these requirements?
 - D. Neural network 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (86%) U (14%)

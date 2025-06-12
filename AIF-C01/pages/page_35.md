@@ -10,4 +10,4 @@ Which solution meets these requirements?
 - D. WaveNet 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (83%) U (17%)

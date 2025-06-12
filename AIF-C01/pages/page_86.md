@@ -8,4 +8,4 @@ Which prompting attack directly exposes the configured behavior of a large langu
 - D. Extracting the prompt template 
 
 Correct Answer: 
-D Community vote distribution D (86%) B (14%)
+D Community vote distribution D (88%) B (12%)

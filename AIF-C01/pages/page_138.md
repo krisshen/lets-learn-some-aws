@@ -10,4 +10,4 @@ Which algorithm should the company use to meet this requirement?
 - D. Support vector machine 
 
 Correct Answer: 
-B Community vote distribution B (67%) A (33%)
+B Community vote distribution B (71%) A (29%)

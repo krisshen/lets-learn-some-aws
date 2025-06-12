@@ -10,4 +10,4 @@ Which AWS service can the company use to meet this requirement?
 - D. AWS Data Exchange 
 
 Correct Answer: 
-B Community vote distribution B (67%) D (33%)
+B Community vote distribution B (69%) D (31%)

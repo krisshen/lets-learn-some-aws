@@ -10,4 +10,4 @@ Which solution will meet these requirements?
 - D. Create one Amazon Bedrock role that has full Amazon S3 access. Create IAM roles for each team that have access to only each team's customer folders. 
 
 Correct Answer: 
-A Community vote distribution A (71%) D (29%)
+A Community vote distribution A (67%) D (33%)

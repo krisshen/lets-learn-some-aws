@@ -8,4 +8,4 @@ What does an F1 score measure in the context of foundation model (FM) performanc
 - D. Energy efficiency of the model’s computations 
 
 Correct Answer: 
-A Community vote distribution U (100%)
+A Community vote distribution A (67%) U (33%)

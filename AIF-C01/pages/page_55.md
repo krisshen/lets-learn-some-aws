@@ -10,4 +10,4 @@ Which type of model can the company use to meet this requirement?
 - D. WaveNet 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (90%) U (10%)

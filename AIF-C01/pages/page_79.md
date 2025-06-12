@@ -10,4 +10,4 @@ Which model evaluation strategy meets these requirements?
 - D. F1 score 
 
 Correct Answer: 
-A Community vote distribution A (78%) U (11%) C (11%)
+A Community vote distribution A (70%) U (20%) C (10%)

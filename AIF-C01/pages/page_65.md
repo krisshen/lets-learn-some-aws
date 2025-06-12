@@ -10,4 +10,4 @@ Which adjustment to an inference parameter should the company make to meet these
 - D. Increase the maximum generation length. 
 
 Correct Answer: 
-A Community vote distribution A (80%) U (20%)
+A Community vote distribution A (83%) U (17%)

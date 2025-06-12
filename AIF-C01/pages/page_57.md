@@ -10,4 +10,4 @@ Which type of bias is affecting the model output?
 - D. Confirmation bias 
 
 Correct Answer: 
-B Community vote distribution B (85%) A (15%)
+B Community vote distribution B (86%) A (14%)

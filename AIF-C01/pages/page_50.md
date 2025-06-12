@@ -10,4 +10,4 @@ Which action must the company take to use the custom model through Amazon Bedroc
 - D. Grant access to the custom model in Amazon Bedrock. 
 
 Correct Answer: 
-A Community vote distribution A (58%) D (40%) B (2%)
+A Community vote distribution A (59%) D (40%) B (2%)

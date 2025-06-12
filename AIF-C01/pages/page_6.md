@@ -10,4 +10,4 @@ Which SageMaker inference option meets these requirements?
 - D. Batch transform 
 
 Correct Answer: 
-C Community vote distribution C (76%) A (24%)
+C Community vote distribution C (74%) A (26%)

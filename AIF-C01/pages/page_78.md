@@ -10,4 +10,4 @@ How should the AI practitioner prevent responses based on confidential data?
 - D. Encrypt the confidential data in the custom model by using AWS Key Management Service (AWS KMS). 
 
 Correct Answer: 
-A Community vote distribution A (78%) B (22%)
+A Community vote distribution A (79%) B (21%)

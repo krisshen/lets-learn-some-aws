@@ -10,4 +10,4 @@ Which solution will meet these requirements?
 - D. Automate user feedback integration. 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (88%) U (12%)

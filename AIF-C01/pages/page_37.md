@@ -10,4 +10,4 @@ Which technique will solve the problem?
 - D. Watermark detection for images 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (83%) U (17%)

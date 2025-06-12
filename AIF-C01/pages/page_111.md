@@ -10,4 +10,4 @@ Which factor relates to the explainability of the AI solution's decisions?
 - D. Deployment time 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (86%) U (14%)

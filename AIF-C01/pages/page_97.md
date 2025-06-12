@@ -10,4 +10,4 @@ Which solution meets these requirements?
 - D. Increase the prompt strength. 
 
 Correct Answer: 
-C Community vote distribution C (57%) D (43%)
+C Community vote distribution C (67%) D (33%)

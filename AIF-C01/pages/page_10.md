@@ -10,4 +10,4 @@ Which solution will meet these requirements?
 - D. Incorporate a centralized large language model (LLM) API for asynchronous communication with edge devices. 
 
 Correct Answer: 
-A Community vote distribution A (93%) U (7%)
+A Community vote distribution A (95%) U (5%)

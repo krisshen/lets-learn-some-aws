@@ -10,4 +10,4 @@ Which solution meets these requirements?
 - D. Develop a multi-language translation system. 
 
 Correct Answer: 
-C Community vote distribution C (77%) A (23%)
+C Community vote distribution C (80%) A (20%)

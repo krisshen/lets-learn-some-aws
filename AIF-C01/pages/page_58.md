@@ -10,4 +10,4 @@ Which AI learning strategy provides this self-improvement capability?
 - D. Supervised learning with a continuously updated FAQ database 
 
 Correct Answer: 
-B Community vote distribution B (100%)
+B Community vote distribution B (88%) A (12%)

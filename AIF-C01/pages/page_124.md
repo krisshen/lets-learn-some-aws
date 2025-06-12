@@ -10,4 +10,4 @@ How should the bank fix this issue MOST cost-effectively?
 - D. Pre-train a new LLM with more diverse training data. 
 
 Correct Answer: 
-A Community vote distribution A (75%) B (25%)
+A Community vote distribution A (60%) B (40%)

@@ -8,4 +8,4 @@ Which AWS service or feature can help an AI development team quickly deploy and 
 - D. Amazon SageMaker endpoints 
 
 Correct Answer: 
-B Community vote distribution B (61%) D (39%)
+B Community vote distribution B (62%) D (38%)

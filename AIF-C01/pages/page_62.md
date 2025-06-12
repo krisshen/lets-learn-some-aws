@@ -10,4 +10,4 @@ Which Amazon SageMaker inference option will meet these requirements?
 - D. Asynchronous inference 
 
 Correct Answer: 
-A Community vote distribution A (70%) D (20%) U (10%)
+A Community vote distribution A (75%) D (17%) U (8%)

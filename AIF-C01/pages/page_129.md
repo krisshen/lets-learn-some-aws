@@ -10,4 +10,4 @@ Which AWS service meets these requirements?
 - D. AWS Config 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+A Community vote distribution A (67%) U (33%)

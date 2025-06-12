@@ -10,4 +10,4 @@ Which type of FM should the AI practitioner use to power the search application?
 - D. Image generation model 
 
 Correct Answer: 
-A Community vote distribution A (94%) C (6%)
+A Community vote distribution A (95%) C (5%)

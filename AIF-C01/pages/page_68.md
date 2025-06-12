@@ -10,4 +10,4 @@ Which AWS service meets this requirement?
 - D. Amazon Transcribe 
 
 Correct Answer: 
-A Community vote distribution A (67%) U (33%)
+A Community vote distribution A (80%) U (20%)

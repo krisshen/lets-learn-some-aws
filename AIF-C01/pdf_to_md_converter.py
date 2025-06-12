@@ -113,7 +113,7 @@ def extract_images(pdf_document, question_number, images_dir, page_index, contai
         width, height = base_image["width"], base_image["height"]
 
         # Skip irrelevant images (size is less than 300x300)
-        if not contains_hotspot or width < 300 or height < 300:
+        if not contains_hotspot or width < 300 or height < 300 or (width == 345 and height == 350):
             continue
 
         # Save the image with question number
@@ -156,7 +156,7 @@ def process_pdf(input_pdf, output_dir, images_dir):
 
 if __name__ == "__main__":
     # Define the input PDF file and output directories
-    input_pdf = "pdf/with_answers.pdf" # only pdf with answers needed here
+    input_pdf = "pdf/202506/with_answers.pdf" # only pdf with answers needed here
     output_dir = "pages"
     images_dir = "images"
 

@@ -10,4 +10,4 @@ What can Amazon Q Developer do to help the company meet these requirements?
 - D. Convert audio files to text documents by using ML models. 
 
 Correct Answer: 
-A Community vote distribution A (73%) C (15%) U (12%)
+A Community vote distribution A (77%) C (13%) U (10%)

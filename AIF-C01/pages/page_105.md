@@ -10,4 +10,4 @@ Which LLM feature meets these requirements?
 - D. Text classification 
 
 Correct Answer: 
-B Community vote distribution B (80%) C (20%)
+B Community vote distribution B (67%) C (33%)

@@ -10,4 +10,4 @@ Which solution meets these requirements?
 - D. Create classification labels by using Amazon Comprehend. 
 
 Correct Answer: 
-B Community vote distribution B (100%)
+B Community vote distribution B (93%) D (7%)

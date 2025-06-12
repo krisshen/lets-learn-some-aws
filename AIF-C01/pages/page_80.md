@@ -10,4 +10,4 @@ What are the key benefits of using Amazon Bedrock agents that could help this re
 - D. Selecting the foundation model (FM) based on predefined criteria and metrics 
 
 Correct Answer: 
-B Community vote distribution B (86%) C (14%)
+B Community vote distribution B (87%) C (13%)

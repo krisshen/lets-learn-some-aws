@@ -12,4 +12,4 @@ How can the company improve the performance of the chatbot?
 - D. Clean the research paper data to remove complex scientific terms. 
 
 Correct Answer: 
-B Community vote distribution B (77%) A (15%) U (8%)
+B Community vote distribution B (79%) A (14%) U (7%)
