@@ -1999,5 +1999,163 @@
     ],
     "options": {},
     "answer": null
+  },
+  {
+    "id": 156,
+    "question": "## Question #156\n\nWhich AWS feature records details about ML instance data for governance and reporting?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Amazon SageMaker Model Cards",
+      "B": "Amazon SageMaker Debugger",
+      "C": "Amazon SageMaker Model Monitor",
+      "D": "Amazon SageMaker JumpStart "
+    },
+    "answer": "A"
+  },
+  {
+    "id": 157,
+    "question": "## Question #157\n\nA financial company is using ML to help with some of the company’s tasks.\n\nWhich option is a use of generative AI models?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Summarizing customer complaints",
+      "B": "Classifying customers based on product usage",
+      "C": "Segmenting customers based on type of investments",
+      "D": "Forecasting revenue for certain products "
+    },
+    "answer": "A"
+  },
+  {
+    "id": 158,
+    "question": "## Question #158\n\nA medical company wants to develop an AI application that can access structured patient records, extract relevant information, and generate concise summaries.\n\nWhich solution will meet these requirements?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Use Amazon Comprehend Medical to extract relevant medical entities and relationships. Apply rule-based logic to structure and format summaries.",
+      "B": "Use Amazon Personalize to analyze patient engagement patterns. Integrate the output with a general purpose text summarization tool.",
+      "C": "Use Amazon Textract to convert scanned documents into digital text. Design a keyword extraction system to generate summaries.",
+      "D": "Implement Amazon Kendra to provide a searchable index for medical records. Use a template-based system to format summaries. "
+    },
+    "answer": "A"
+  },
+  {
+    "id": 159,
+    "question": "## Question #159\n\nA company is building an AI-powered image moderation system on AWS to ensure that user-uploaded images do not contain inappropriate content (e.g., violence, nudity).\n\nWhich AWS service is MOST suitable for directly detecting and blocking such content?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Amazon Rekognition",
+      "B": "Amazon Comprehend",
+      "C": "Amazon SageMaker",
+      "D": "Amazon Textract "
+    },
+    "answer": "A"
+  },
+  {
+    "id": 160,
+    "question": "## Question #160\n\nA company is building an AI application to summarize books of varying lengths. During testing, the application fails to summarize some books.\n\nWhy does the application fail to summarize some books?",
+    "question_type": "single_select",
+    "options": {
+      "A": "The temperature is set too high.",
+      "B": "The selected model does not support fine-tuning.",
+      "C": "The Top P value is too high.",
+      "D": "The input tokens exceed the model’s context size. "
+    },
+    "answer": "D"
+  },
+  {
+    "id": 161,
+    "question": "## Question #161\n\nAn airline company wants to build a conversational AI assistant to answer customer questions about flight schedules, booking, and payments. The company wants to use large language models (LLMs) and a knowledge base to create a text-based chatbot interface.\n\nWhich solution will meet these requirements with the LEAST development effort?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Train models on Amazon SageMaker Autopilot.",
+      "B": "Develop a Retrieval Augmented Generation (RAG) agent by using Amazon Bedrock.",
+      "C": "Create a Python application by using Amazon Q Developer.",
+      "D": "Fine-tune models on Amazon SageMaker Jumpstart. "
+    },
+    "answer": "B"
+  },
+  {
+    "id": 162,
+    "question": "## Question #162\n\nWhat is tokenization used for in natural language processing (NLP)?",
+    "question_type": "single_select",
+    "options": {
+      "A": "To encrypt text data",
+      "B": "To compress text files",
+      "C": "To break text into smaller units for processing",
+      "D": "To translate text between languages "
+    },
+    "answer": "C"
+  },
+  {
+    "id": 163,
+    "question": "## Question #163\n\nWhich option is a characteristic of transformer-based language models?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Transformer-based language models use convolutional layers to apply filters across an input to capture local patterns through filtered views.",
+      "B": "Transformer-based language models can process only text data.",
+      "C": "Transformer-based language models use self-attention mechanisms to capture contextual relationships.",
+      "D": "Transformer-based language models process data sequences one element at a time in cyclic iterations. "
+    },
+    "answer": "C"
+  },
+  {
+    "id": 164,
+    "question": "## Question #164\n\nA financial company is using AI systems to obtain customer credit scores as part of the loan application process. The company wants to expand to a new market in a different geographic area. The company must ensure that it can operate in that geographic area.\n\nWhich compliance laws should the company review?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Local health data protection laws",
+      "B": "Local payment card data protection laws",
+      "C": "Local education privacy laws",
+      "D": "Local algorithm accountability laws "
+    },
+    "answer": "D"
+  },
+  {
+    "id": 165,
+    "question": "## Question #165\n\nA company uses Amazon Bedrock for its generative AI application. The company wants to use Amazon Bedrock Guardrails to detect and filter harmful user inputs and model-generated outputs.\n\nWhich content categories can the guardrails filter? (Choose two.)",
+    "question_type": "multi_select",
+    "options": {
+      "A": "Hate",
+      "B": "Politics",
+      "C": "Violence",
+      "D": "Gambling",
+      "E": "Religion "
+    },
+    "answer": "AC"
+  },
+  {
+    "id": 166,
+    "question": "## Question #166\n\nWhich scenario describes a potential risk and limitation of prompt engineering in the context of a generative AI model?",
+    "question_type": "single_select",
+    "options": {
+      "A": "Prompt engineering does not ensure that the model always produces consistent and deterministic outputs, eliminating the need for validation.",
+      "B": "Prompt engineering could expose the model to vulnerabilities such as prompt injection attacks.",
+      "C": "Properly designed prompts reduce but do not eliminate the risk of data poisoning or model hijacking.",
+      "D": "Prompt engineering does not ensure that the model will consistently generate highly reliable outputs when working with real-world data. "
+    },
+    "answer": "B"
+  },
+  {
+    "id": 167,
+    "question": "## Question #167\n\nA publishing company built a Retrieval Augmented Generation (RAG) based solution to give its users the ability to interact with published content. New content is published daily. The company wants to provide a near real-time experience to users.\n\nWhich steps in the RAG pipeline should the company implement by using offline batch processing to meet these requirements?\n\n(Choose two.)",
+    "question_type": "multi_select",
+    "options": {
+      "A": "Generation of content embeddings",
+      "B": "Generation of embeddings for user queries",
+      "C": "Creation of the search index",
+      "D": "Retrieval of relevant content",
+      "E": "Response generation for the user "
+    },
+    "answer": "A"
+  },
+  {
+    "id": 168,
+    "question": "## Question #168\n\nWhich technique breaks a complex task into smaller subtasks that are sent sequentially to a large language model (LLM)?",
+    "question_type": "single_select",
+    "options": {
+      "A": "One-shot prompting",
+      "B": "Prompt chaining",
+      "C": "Tree of thoughts",
+      "D": "Retrieval Augmented Generation (RAG) "
+    },
+    "answer": "B"
   }
 ]
