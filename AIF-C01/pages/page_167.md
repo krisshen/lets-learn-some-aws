@@ -12,4 +12,4 @@ Which steps in the RAG pipeline should the company implement by using offline ba
 - E. Response generation for the user 
 
 Correct Answer: 
-A Community vote distribution A (100%)
+AC Community vote distribution A (100%)
