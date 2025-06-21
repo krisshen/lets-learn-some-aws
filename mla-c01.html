@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MLA-C01 Practice Test</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body
+        class="bg-gradient-to-b from-sky-50 to-white min-h-screen text-center p-4 sm:p-6 font-sans">
+
+        <div class="max-w-4xl mx-auto">
+            <!-- Back to Home Button -->
+            <div class="text-left mb-4">
+                <button onclick="window.location.href='index.html'" 
+                        class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to Tests
+                </button>
+            </div>
+
+            <h1 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-gray-800">
+                MLA-C01<br />
+                <span id="answered-count"
+                    class="text-green-600 font-bold">0</span>/<span
+                    id="total-count">0</span>
+            </h1>
+
+            <div id="grid"
+                class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2 sm:gap-3 justify-center text-sm max-w-4xl mx-auto"></div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+            <div
+                class="relative flex items-center justify-center w-full max-w-2xl mx-auto">
+                <!-- Left Arrow -->
+                <button id="prev-btn" aria-label="Previous"
+                    class="absolute -left-2 sm:-left-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 active:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-1 sm:p-2 transition touch-manipulation">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div
+                    class="bg-white p-4 sm:p-6 rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-xl text-left flex items-start z-50 border border-gray-200 max-h-[80vh] overflow-y-auto">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-base sm:text-lg font-bold"
+                                    id="question-title">Question</h2>
+                                <!-- Copy button -->
+                                <button onclick="copyQuestion()" aria-label="Copy Question"
+                                    class="bg-gray-100 hover:bg-gray-200 active:bg-gray-200 text-gray-500 hover:text-gray-700 rounded-full p-1.5 transition touch-manipulation flex-shrink-0 relative group">
+                                    <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                    <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <!-- Mark button -->
+                                <button onclick="toggleMark()" aria-label="Mark Question"
+                                    class="bg-gray-100 hover:bg-gray-200 active:bg-gray-200 text-gray-500 hover:text-gray-700 rounded-full p-1.5 transition touch-manipulation flex-shrink-0">
+                                    <svg id="mark-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <!-- Close button -->
+                            <button onclick="closeModal()" aria-label="Close"
+                                class="bg-gray-100 hover:bg-gray-200 active:bg-gray-200 text-gray-500 hover:text-gray-700 rounded-full p-1.5 transition touch-manipulation flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="question" class="mb-4 text-sm sm:text-base"></div>
+                        <div id="options" class="space-y-2"></div>
+                    </div>
+                </div>
+                <!-- Right Arrow -->
+                <button id="next-btn" aria-label="Next"
+                    class="absolute -right-2 sm:-right-10 top-1/2 -translate-y-1/2 bg-white border border-gray-300 hover:bg-blue-100 active:bg-blue-100 text-gray-500 hover:text-blue-600 rounded-full shadow-md p-1 sm:p-2 transition touch-manipulation">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <script>
+    const grid = document.getElementById("grid");
+    const answeredCount = document.getElementById("answered-count");
+    const questions = [];
+    const answered = new Set();
+    const markedQuestions = new Set();
+    const userAnswers = {};
+
+    async function loadQuestions() {
+      const response = await fetch("MLA-C01/questions.json");
+      const data = await response.json();
+      questions.push(...data);
+      document.getElementById("total-count").textContent = questions.length;
+      loadState();
+      renderGrid();
+    }
+
+    function updateAnsweredCount() {
+      answeredCount.textContent = answered.size;
+      saveState();
+    }
+
+    function renderGrid() {
+      grid.innerHTML = '';
+      questions.forEach(q => {
+        let btnClass = 'w-10 h-10 sm:w-12 sm:h-12 border rounded touch-manipulation ';
+        const isMulti = q.question_type === 'multi_select';
+        const isHotspotDropdown = q.question_type === 'hotspot_dropdown';
+        
+        // Check if question is marked
+        if (markedQuestions.has(q.id)) {
+          btnClass += 'bg-yellow-300 ';
+        } else if (userAnswers[q.id]) {
+          if (isHotspotDropdown) {
+            // Check if all dropdown selections are correct
+            const allAnswered = q.items.every(item => 
+              userAnswers[q.id][item.prompt] && userAnswers[q.id][item.prompt] !== ""
+            );
+            const allCorrect = q.items.every(item => 
+              userAnswers[q.id][item.prompt] === item.answer
+            );
+            
+            if (allAnswered && allCorrect) {
+              btnClass += 'bg-green-300 ';
+            } else if (allAnswered && !allCorrect) {
+              btnClass += 'bg-red-300 ';
+            } else {
+              btnClass += 'bg-gray-100 '; // Some dropdowns not answered
+            }
+          } else if (isMulti) {
+            let correctSet = new Set(q.answer.split(''));
+            let selectedSet = new Set(userAnswers[q.id]);
+            
+            // Check if answers have been selected
+            if (selectedSet.size > 0) {
+                // Check if all correct answers are selected and no wrong answers
+                const allCorrectSelected = selectedSet.size === correctSet.size && 
+                                         [...correctSet].every(a => selectedSet.has(a)) &&
+                                         [...selectedSet].every(a => correctSet.has(a));
+                const anyWrong = [...selectedSet].some(a => !correctSet.has(a));
+                
+                if (allCorrectSelected) {
+                    btnClass += 'bg-green-300 ';
+                } else if (anyWrong) {
+                    btnClass += 'bg-red-300 '; // Mark as red if any selected answer is wrong
+                } else {
+                    btnClass += 'bg-gray-100 '; // Gray if only some correct answers selected
+                }
+            } else {
+                btnClass += 'bg-gray-100 '; // Default to gray if no answers are selected
+            }
+          } else {
+            if (userAnswers[q.id] === q.answer) {
+              btnClass += 'bg-green-300 ';
+            } else {
+              btnClass += 'bg-red-300 ';
+            }
+          }
+        } else {
+          btnClass += 'bg-gray-100 ';
+        }
+        
+        const btn = document.createElement("button");
+        btn.className = btnClass;
+        btn.textContent = q.id;
+        btn.onclick = () => openModal(q.id);
+        grid.appendChild(btn);
+      });
+      updateAnsweredCount();
+    }
+
+    let currentModalId = null;
+    let currentQuestionIndex = 0;
+    function openModal(id) {
+      currentModalId = id;
+      currentQuestionIndex = questions.findIndex(q => q.id === id);
+      const modal = document.getElementById("modal");
+      const q = questions.find(q => q.id === id);
+      const parts = q.question.split(/\n\n/);
+      const title = parts[0].replace(/^## /, "");
+      const content = parts.slice(1).join("\n\n").replace(/\n/g, "<br>");
+      document.getElementById("question-title").textContent = title;
+      document.getElementById("question").innerHTML = content;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = '';
+
+      // Multi-selection and HOTSPOT logic
+      const isMulti = q.question_type === 'multi_select';
+      const isHotspotDropdown = q.question_type === 'hotspot_dropdown';
+      
+      if (isMulti) {
+        if (!userAnswers[q.id]) userAnswers[q.id] = [];
+      } else if (isHotspotDropdown) {
+        if (!userAnswers[q.id]) userAnswers[q.id] = {};
+      }
+
+      if (isHotspotDropdown) {
+        // Render dropdown items
+        q.items.forEach((item, index) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "mb-4 p-3 border rounded-lg bg-gray-50";
+          
+          const promptDiv = document.createElement("div");
+          promptDiv.textContent = item.prompt;
+          promptDiv.className = "mb-2 font-medium text-sm sm:text-base";
+          itemDiv.appendChild(promptDiv);
+          
+          const selectDiv = document.createElement("select");
+          selectDiv.className = "w-full p-2 border rounded-md text-sm sm:text-base";
+          
+          // Add default option
+          const defaultOption = document.createElement("option");
+          defaultOption.value = "";
+          defaultOption.textContent = "Select an option...";
+          selectDiv.appendChild(defaultOption);
+          
+          // Add all options
+          item.options.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.textContent = option;
+            if (userAnswers[q.id][item.prompt] === option) {
+              optionElement.selected = true;
+            }
+            selectDiv.appendChild(optionElement);
+          });
+          
+          // Color coding based on correctness
+          if (userAnswers[q.id][item.prompt]) {
+            if (userAnswers[q.id][item.prompt] === item.answer) {
+              selectDiv.className += " border-green-400 bg-green-50";
+            } else {
+              selectDiv.className += " border-red-400 bg-red-50";
+            }
+          }
+          
+          selectDiv.onchange = (e) => {
+            userAnswers[q.id][item.prompt] = e.target.value;
+            
+            // Check if all dropdowns are answered and correct
+            const allAnswered = q.items.every(item => 
+              userAnswers[q.id][item.prompt] && userAnswers[q.id][item.prompt] !== ""
+            );
+            const allCorrect = q.items.every(item => 
+              userAnswers[q.id][item.prompt] === item.answer
+            );
+            
+            if (allAnswered && allCorrect) {
+              answered.add(id);
+            } else {
+              answered.delete(id);
+            }
+            
+            renderGrid();
+            saveState();
+            openModal(id);
+          };
+          
+          itemDiv.appendChild(selectDiv);
+          optionsDiv.appendChild(itemDiv);
+        });
+      } else {
+        for (const key in q.options) {
+          const optBtn = document.createElement("button");
+          optBtn.textContent = `${key}. ${q.options[key]}`;
+          optBtn.className = "block w-full text-left p-2 sm:p-3 rounded-xl transition-all border shadow-sm hover:shadow-md hover:bg-blue-50 active:bg-blue-50 text-sm sm:text-base touch-manipulation";
+          if (isMulti) {
+          if (userAnswers[q.id].includes(key)) {
+            // Highlight correct selections green, incorrect red
+            let correctSet = new Set(q.answer.split(''));
+            if (correctSet.has(key)) {
+              optBtn.className += " bg-green-200 border-green-400 ring-2 ring-green-300";
+            } else {
+              optBtn.className += " bg-red-200 border-red-400 ring-2 ring-red-300";
+            }
+          }
+        } else {
+          if (userAnswers[q.id]) {
+            if (userAnswers[q.id] === key) {
+              if (key === q.answer) {
+                optBtn.className += " bg-green-200 border-green-400 ring-2 ring-green-300";
+              } else {
+                optBtn.className += " bg-red-200 border-red-400 ring-2 ring-red-300";
+              }
+            }
+          }
+        }
+        optBtn.onclick = () => {
+          if (isMulti) {
+            const idx = userAnswers[q.id].indexOf(key);
+            if (idx === -1) {
+              let maxSelections = q.answer.length;
+              if (userAnswers[q.id].length < maxSelections) {
+                userAnswers[q.id].push(key);
+              }
+            } else {
+              userAnswers[q.id].splice(idx, 1);
+            }
+            // Check if all correct answers are selected
+            let correct = false;
+            let correctSet = new Set(q.answer.split(''));
+            let selectedSet = new Set(userAnswers[q.id]);
+            if (selectedSet.size === correctSet.size && [...correctSet].every(a => selectedSet.has(a))) {
+              correct = true;
+            }
+            if (correct) {
+              answered.add(id);
+            } else {
+              answered.delete(id);
+            }
+            renderGrid();
+            saveState();
+            openModal(id);
+          } else {
+            // Single choice - add unselect functionality
+            if (userAnswers[q.id] === key) {
+              // Unselect if clicking the same option again
+              delete userAnswers[q.id];
+              answered.delete(id);
+            } else {
+              // Select new option
+              userAnswers[q.id] = key;
+              if (key === q.answer) {
+                answered.add(id);
+              } else {
+                answered.delete(id);
+              }
+            }
+            renderGrid();
+            saveState();
+            openModal(id);
+          }
+        };
+        optionsDiv.appendChild(optBtn);
+        }
+      }
+
+      document.getElementById("prev-btn").onclick = showPrevQuestion;
+      document.getElementById("next-btn").onclick = showNextQuestion;
+
+      // Update mark button appearance
+      const markBtn = document.querySelector('[onclick="toggleMark()"]');
+      if (markedQuestions.has(id)) {
+        markBtn.classList.remove('bg-gray-100', 'text-gray-500');
+        markBtn.classList.add('bg-yellow-200', 'text-yellow-700');
+      } else {
+        markBtn.classList.remove('bg-yellow-200', 'text-yellow-700');
+        markBtn.classList.add('bg-gray-100', 'text-gray-500');
+      }
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      
+      // Add click-outside-to-close functionality
+      modal.onclick = function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      };
+    }
+
+    function showPrevQuestion() {
+      const prevIndex = (currentQuestionIndex - 1 + questions.length) % questions.length;
+      openModal(questions[prevIndex].id);
+    }
+
+    function showNextQuestion() {
+      const nextIndex = (currentQuestionIndex + 1) % questions.length;
+      openModal(questions[nextIndex].id);
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+
+    // Enhanced mobile keyboard navigation
+    window.addEventListener('keydown', function(e) {
+      if (document.getElementById('modal').classList.contains('hidden')) return;
+      if (e.key === 'ArrowLeft') {
+        showPrevQuestion();
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight') {
+        showNextQuestion();
+        e.preventDefault();
+      } else if (e.key === 'Escape') {
+        closeModal();
+        e.preventDefault();
+      }
+    });
+
+    // Touch gestures for mobile navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.getElementById('modal').addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    document.getElementById('modal').addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+    
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - next question
+          showNextQuestion();
+        } else {
+          // Swipe right - previous question
+          showPrevQuestion();
+        }
+      }
+    }
+
+    // Mouse wheel navigation for questions
+    document.getElementById('modal').addEventListener('wheel', function(e) {
+      if (document.getElementById('modal').classList.contains('hidden')) return;
+      
+      e.preventDefault();
+      
+      if (e.deltaY > 0) {
+        // Scroll down - next question
+        showNextQuestion();
+      } else {
+        // Scroll up - previous question
+        showPrevQuestion();
+      }
+    });
+
+    function copyQuestion() {
+        const questionTitle = document.getElementById("question-title").textContent;
+        const questionContent = document.getElementById("question").innerText;
+        const optionsDiv = document.getElementById("options");
+        const options = Array.from(optionsDiv.children).map(option => option.innerText).join('\n');
+
+        const fullText = `${questionTitle}\n${questionContent}\nOptions:\n${options}`;
+        
+        navigator.clipboard.writeText(fullText).then(() => {
+            const copyIcon = document.getElementById("copy-icon");
+            const checkIcon = document.getElementById("check-icon");
+            
+            // Hide copy icon and show check icon
+            copyIcon.classList.add("hidden");
+            checkIcon.classList.remove("hidden");
+            
+            // Switch back after 1.5 seconds
+            setTimeout(() => {
+                checkIcon.classList.add("hidden");
+                copyIcon.classList.remove("hidden");
+            }, 1500);
+        }).catch(err => {
+            console.error("Failed to copy: ", err);
+        });
+    }
+
+    function toggleMark() {
+        if (!currentModalId) return;
+        
+        const markBtn = document.querySelector('[onclick="toggleMark()"]');
+        
+        if (markedQuestions.has(currentModalId)) {
+            // Unmark the question
+            markedQuestions.delete(currentModalId);
+            markBtn.classList.remove('bg-yellow-200', 'text-yellow-700');
+            markBtn.classList.add('bg-gray-100', 'text-gray-500');
+        } else {
+            // Mark the question
+            markedQuestions.add(currentModalId);
+            markBtn.classList.remove('bg-gray-100', 'text-gray-500');
+            markBtn.classList.add('bg-yellow-200', 'text-yellow-700');
+        }
+        
+        renderGrid();
+        saveState();
+    }
+
+    function saveState() {
+      localStorage.setItem('MLA-C01-answered', JSON.stringify(Array.from(answered)));
+      localStorage.setItem('MLA-C01-markedQuestions', JSON.stringify(Array.from(markedQuestions)));
+      localStorage.setItem('MLA-C01-userAnswers', JSON.stringify(userAnswers));
+    }
+
+    function loadState() {
+      const savedAnswered = localStorage.getItem('MLA-C01-answered');
+      const savedMarkedQuestions = localStorage.getItem('MLA-C01-markedQuestions');
+      const savedUserAnswers = localStorage.getItem('MLA-C01-userAnswers');
+
+      if (savedAnswered) {
+        const answeredArray = JSON.parse(savedAnswered);
+        answeredArray.forEach(id => answered.add(id));
+      }
+
+      if (savedMarkedQuestions) {
+        const markedArray = JSON.parse(savedMarkedQuestions);
+        markedArray.forEach(id => markedQuestions.add(id));
+      }
+
+      if (savedUserAnswers) {
+        Object.assign(userAnswers, JSON.parse(savedUserAnswers));
+      }
+    }
+
+    loadQuestions();
+  </script>
+    </body>
+</html> 
