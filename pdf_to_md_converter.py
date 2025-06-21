@@ -156,7 +156,7 @@ def process_pdf(input_pdf, output_pages_dir, output_images_dir):
 
 if __name__ == "__main__":
     # Define the input PDF file and output directories
-    exam_dir = "AIF-C01"
+    exam_dir = "MLA-C01"
     input_pdf = f"{exam_dir}/pdf/202506/with_answers.pdf" # only pdf with answers needed here
     output_pages_dir = f"{exam_dir}/pages"
     output_images_dir = f"{exam_dir}/images"

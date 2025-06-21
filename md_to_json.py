@@ -2,7 +2,7 @@ import os
 import re
 import json
 
-exam_dir = "AIF-C01"
+exam_dir = "MLA-C01"
 PAGES_DIR = os.path.join(os.path.dirname(__file__), f'{exam_dir}/pages')
 OUTPUT_JSON = os.path.join(os.path.dirname(__file__), f'{exam_dir}/questions.json')
 

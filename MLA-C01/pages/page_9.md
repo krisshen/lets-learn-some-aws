@@ -1,0 +1,3 @@
+## Question #9
+
+HOTSPOT - An ML engineer is working on an ML model to predict the prices of similarly sized homes. The model will base predictions on several features The ML engineer will use the following feature engineering techniques to estimate the prices of the homes: • Feature splitting • Logarithmic transformation • One-hot encoding • Standardized distribution Select the correct feature engineering techniques for the following list of features. Each feature engineering technique should be selected one time or not at all (Select three.) Correct Answer:
