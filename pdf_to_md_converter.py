@@ -94,14 +94,14 @@ def extract_questions_from_text(page_text):
     return cleaned_questions
 
 
-def save_markdown(output_dir, question_number, formatted_text):
+def save_markdown(output_pages_dir, question_number, formatted_text):
     """Save the formatted text as a Markdown file for each question."""
-    output_file = os.path.join(output_dir, f"page_{question_number}.md")
+    output_file = os.path.join(output_pages_dir, f"page_{question_number}.md")
     with open(output_file, "w", encoding="utf-8") as md_file:
         md_file.write(formatted_text)
 
 
-def extract_images(pdf_document, question_number, images_dir, page_index, contains_hotspot):
+def extract_images(pdf_document, question_number, output_images_dir, page_index, contains_hotspot):
     """Extract images from a PDF page and save them using the question number, with hotspot and size filtering."""
     pdf_page = pdf_document[page_index]
     images = pdf_page.get_images(full=True)
@@ -118,19 +118,19 @@ def extract_images(pdf_document, question_number, images_dir, page_index, contai
 
         # Save the image with question number
         print(f"Extracting image {img_index + 1} for question {question_number} with dimensions {width}x{height}")
-        image_file = os.path.join(images_dir, f"page_{question_number}_image_{img_index + 1}.{image_ext}")
+        image_file = os.path.join(output_images_dir, f"page_{question_number}_image_{img_index + 1}.{image_ext}")
         with open(image_file, "wb") as img_file:
             img_file.write(image_bytes)
 
 
-def process_pdf(input_pdf, output_dir, images_dir):
+def process_pdf(input_pdf, output_pages_dir, output_images_dir):
     """Process the PDF to extract questions and images."""
     # Ensure the input PDF file exists
     if not os.path.exists(input_pdf):
         raise FileNotFoundError(f"The input PDF file '{input_pdf}' was not found. Please check the file path.")
 
     # Ensure the output directories exist
-    ensure_directories_exist(output_dir, images_dir)
+    ensure_directories_exist(output_pages_dir, output_images_dir)
 
     # Read the PDF file
     reader = PdfReader(input_pdf)
@@ -148,17 +148,18 @@ def process_pdf(input_pdf, output_dir, images_dir):
             m = re.search(r"Question #(\d+)", q)
             if m:
                 qnum = m.group(1)
-                save_markdown(output_dir, qnum, q)
+                save_markdown(output_pages_dir, qnum, q)
                 contains_hotspot = "HOTSPOT" in page_text.upper()
-                extract_images(pdf_document, qnum, images_dir, i, contains_hotspot)
-    print(f"PDF has been successfully converted into Markdown files and images in {output_dir} and {images_dir}")
+                extract_images(pdf_document, qnum, output_images_dir, i, contains_hotspot)
+    print(f"PDF has been successfully converted into Markdown files and images in {output_pages_dir} and {output_images_dir}")
 
 
 if __name__ == "__main__":
     # Define the input PDF file and output directories
-    input_pdf = "pdf/202506/with_answers.pdf" # only pdf with answers needed here
-    output_dir = "pages"
-    images_dir = "images"
+    exam_dir = "AIF-C01"
+    input_pdf = f"{exam_dir}/pdf/202506/with_answers.pdf" # only pdf with answers needed here
+    output_pages_dir = f"{exam_dir}/pages"
+    output_images_dir = f"{exam_dir}/images"
 
     # Process the PDF
-    process_pdf(input_pdf, output_dir, images_dir)
+    process_pdf(input_pdf, output_pages_dir, output_images_dir)

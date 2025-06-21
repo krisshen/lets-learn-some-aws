@@ -2,8 +2,9 @@ import os
 import re
 import json
 
-PAGES_DIR = os.path.join(os.path.dirname(__file__), 'pages')
-OUTPUT_JSON = os.path.join(os.path.dirname(__file__), 'questions.json')
+exam_dir = "AIF-C01"
+PAGES_DIR = os.path.join(os.path.dirname(__file__), f'{exam_dir}/pages')
+OUTPUT_JSON = os.path.join(os.path.dirname(__file__), f'{exam_dir}/questions.json')
 
 option_pattern = re.compile(r'^- ([A-Z])\. (.+)$')
 answer_pattern = re.compile(r'^Correct Answer:?\s*(.*)$', re.IGNORECASE)
